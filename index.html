@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SSM Sarees — Handloom &amp; Premium Sarees</title>
+<meta name="description" content="Handpicked Kanjivaram, Banarasi, cotton and party-wear sarees. Shop the collection, delivered to your door.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Karla:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap nav__row">
+    <a href="#" class="nav__logo" id="navShopBtn">SSM <span>Sarees</span></a>
+    <nav class="nav__links">
+      <button id="navShopBtn2" onclick="document.getElementById('navShopBtn').click()"><span class="nav__label">Shop</span></button>
+      <button class="cart-btn" id="cartOpenBtn" aria-label="Open cart">
+        Cart <span class="cart-count" id="cartCount">0</span>
+      </button>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <!-- ================= SHOP VIEW (home + catalog) ================= -->
+  <div class="view active" id="view-shop">
+
+    <section class="hero wrap">
+      <div>
+        <span class="eyebrow">Handloom &amp; Silk, Since the Loom</span>
+        <h1>Sarees woven with <em>patience</em>,<br>worn with pride.</h1>
+        <p>A small, hand-picked collection of Kanjivaram, Banarasi, cotton and party-wear sarees — sourced directly from weaving clusters and shipped across India.</p>
+        <a href="#shop-grid" class="btn btn--primary">Shop the collection</a>
+      </div>
+      <div class="hero__drape">
+        <span></span>
+        <div class="fold"></div>
+        <div class="fold"></div>
+        <div class="fold"></div>
+        <div class="drape-border zari-border thick"></div>
+      </div>
+    </section>
+
+    <div class="zari-border"></div>
+
+    <section class="shop wrap" id="shop-grid">
+      <div class="shop__head">
+        <div>
+          <span class="eyebrow">The Collection</span>
+          <h2>Every piece, one border at a time</h2>
+        </div>
+        <div class="filters" id="filters"></div>
+      </div>
+      <div class="grid" id="grid"></div>
+    </section>
+
+  </div>
+
+  <!-- ================= CHECKOUT VIEW ================= -->
+  <div class="view" id="view-checkout">
+    <section class="wrap">
+      <button class="btn btn--ghost" id="backToShopBtn" style="margin-bottom:30px">&larr; Back to shop</button>
+      <div class="checkout-grid">
+        <div>
+          <span class="eyebrow">Checkout</span>
+          <h2 style="margin:10px 0 26px;font-size:1.8rem;">Delivery details</h2>
+          <form id="checkoutForm" novalidate>
+            <div class="field-error show" id="checkoutError" style="display:none;border:1px solid var(--maroon);padding:10px 12px;border-radius:2px;margin-bottom:18px;font-size:0.85rem;"></div>
+            <div class="form-group">
+              <label for="name">Full name</label>
+              <input type="text" id="name" name="name" placeholder="Priya Sharma">
+              <span class="field-error" id="err-name"></span>
+            </div>
+            <div class="form-group">
+              <label for="phone">Phone number</label>
+              <input type="tel" id="phone" name="phone" placeholder="9876543210">
+              <span class="field-error" id="err-phone"></span>
+            </div>
+            <div class="form-group">
+              <label for="address">Address</label>
+              <textarea id="address" name="address" rows="3" placeholder="House no, street, area"></textarea>
+              <span class="field-error" id="err-address"></span>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="city">City</label>
+                <input type="text" id="city" name="city" placeholder="Bengaluru">
+                <span class="field-error" id="err-city"></span>
+              </div>
+              <div class="form-group">
+                <label for="pincode">Pincode</label>
+                <input type="text" id="pincode" name="pincode" placeholder="560001">
+                <span class="field-error" id="err-pincode"></span>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="notes">Delivery notes (optional)</label>
+              <textarea id="notes" name="notes" rows="2" placeholder="Landmark, preferred delivery time, etc."></textarea>
+            </div>
+
+            <div class="form-group" style="margin-top:26px">
+              <label>Payment method</label>
+              <div class="pay-option" id="payOptionRazorpay">
+                <input type="radio" name="paymentMethod" value="razorpay" id="payRazorpay" checked style="margin-top:3px">
+                <div>
+                  <strong>UPI / Card / Netbanking</strong>
+                  <small>Pay securely now via Razorpay.</small>
+                </div>
+              </div>
+              <div class="pay-option" id="payOptionCod">
+                <input type="radio" name="paymentMethod" value="cod" id="payCod" style="margin-top:3px">
+                <div>
+                  <strong>Cash on Delivery</strong>
+                  <small>Pay when your saree arrives.</small>
+                </div>
+              </div>
+              <p class="stock-note" id="paymentOfflineNote" style="display:none">Online payment isn't set up on this deployment yet, so Cash on Delivery is the only option right now.</p>
+            </div>
+
+            <button type="submit" class="btn btn--primary btn--full" id="placeOrderBtn" style="margin-top:10px">Pay &amp; place order</button>
+          </form>
+        </div>
+
+        <div class="order-summary">
+          <span class="eyebrow">Order summary</span>
+          <div id="checkoutSummary" style="margin-top:16px"></div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ================= CONFIRMATION VIEW ================= -->
+  <div class="view" id="view-confirmation">
+    <section class="wrap">
+      <div class="confirm">
+        <span class="eyebrow">Order placed</span>
+        <h2 style="font-size:2rem;margin-top:10px;">Thank you — your saree is on its way to being packed.</h2>
+        <div class="order-id" id="confirmOrderId">AS00000000</div>
+        <p>Total payable on delivery: <strong id="confirmTotal" style="color:var(--ivory)"></strong></p>
+        <p>We'll call you on the phone number you provided to confirm delivery timing. Save your order ID for reference.</p>
+        <button class="btn btn--primary" id="continueShoppingBtn" style="margin-top:20px">Continue shopping</button>
+      </div>
+    </section>
+  </div>
+
+</main>
+
+<footer>
+  <div class="wrap footer__row">
+    <div>
+      <strong>SSM Sarees</strong>
+      Handloom &amp; silk sarees, sourced directly from weaving clusters.
+    </div>
+    <div>
+      <strong>Contact</strong>
+      harshmalai80952@gmail.com<br>
+  +91 9880068776<br>
+  +91 8050068776<br>
+  +91 8867657930<br>
+  +91 7483443429
+
+    </div>
+    <div>
+      <strong>Delivery</strong>
+      Ships across India &middot; Free shipping over &#8377;3,000<br>Cash on delivery available
+    </div>
+  </div>
+</footer>
+
+<!-- ================= CART DRAWER ================= -->
+<div class="scrim" id="scrim"></div>
+<aside class="drawer" id="drawer">
+  <div class="drawer__head">
+    <h2>Your cart</h2>
+    <button class="modal__close" id="drawerCloseBtn" aria-label="Close cart">&times;</button>
+  </div>
+  <div class="drawer__items" id="drawerItems"></div>
+  <div class="drawer__foot" id="drawerFoot"></div>
+</aside>
+
+<!-- ================= PRODUCT MODAL ================= -->
+<div class="overlay" id="overlay">
+  <div class="modal" id="modalContent"></div>
+</div>
+
+<script src="config.js"></script>
+<script src="products.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
