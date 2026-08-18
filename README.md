@@ -1,4 +1,4 @@
-# Anokhi Silks — Backend
+# SSM Sarees — Backend
 
 Express API that gives the storefront real payments and an order inbox:
 - `GET /api/products` — live product list (source of truth for price & stock)
